@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 COURSE_IMAGE=test-course-image
-COURSE_ROOT_DIR=/test-course
+COURSE_WORKSPACE_DIR=/course
 
 if [[ $EUID == 0 ]]; then
    echo "This script must be run as non-root user inside docker group"
@@ -20,5 +20,5 @@ export CONT_GID=$(id -g)
 docker-compose -f docker-compose.yml up -d --build --force-recreate
 docker exec -it $COURSE_IMAGE groupadd -g $(id -g) grp
 docker exec -it $COURSE_IMAGE useradd -u $(id -u) -g $(id -g) -m $USER
-docker exec -it $COURSE_IMAGE chown -R $USER $COURSE_ROOT_DIR
+docker exec -it $COURSE_IMAGE chown -R $USER $COURSE_WORKSPACE_DIR
 
