@@ -4,7 +4,7 @@ COURSE_IMAGE=test-course-image
 COURSE_WORKSPACE_DIR=/course
 COURSE_REPO_NAME=test-cpp-course
 
-COURSE_DEFAULT_START_DIR=$COURSE_WORKSPACE_DIR/$COURSE_REPO_NAME
+COURSE_DEFAULT_START_DIR=$COURSE_WORKSPACE_DIR/$COURSE_REPO_NAME/tasks
 
 if [[ $EUID == 0 ]]; then
    echo "This script must be run as non-root user inside docker group"
