@@ -1,0 +1,17 @@
+version: "3.3"
+
+services:
+  test-course:
+    build:
+      context: cpp-course
+      dockerfile: Dockerfile
+    container_name: test-course-image
+    cap_add:
+      - SYS_PTRACE
+    stdin_open: true
+    tty: true
+    volumes:
+      - <mount_path>:/test-course
+    ports:
+      - "127.0.0.1:2222:22"
+
