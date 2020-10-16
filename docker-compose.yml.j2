@@ -5,7 +5,7 @@ services:
     build:
       context: cpp-course
       dockerfile: Dockerfile
-    container_name: test-course-image
+    container_name: test-cpp-course
     cap_add:
       - SYS_PTRACE
     stdin_open: true
@@ -14,4 +14,3 @@ services:
       - <mount_path>:/course
     ports:
       - "127.0.0.1:2222:22"
-

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-COURSE_IMAGE=test-course-image
+COURSE_CONTAINER=test-cpp-course
 
-docker container stop $COURSE_IMAGE
-docker container rm $COURSE_IMAGE
-
+docker container stop $COURSE_CONTAINER
+docker container rm $COURSE_CONTAINER
