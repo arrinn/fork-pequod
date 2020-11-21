@@ -1,7 +1,5 @@
 FROM ubuntu:20.04
 
-ENV DEBIAN_FRONTEND=noninteractive
-
 COPY install_deps.sh /
 
 RUN sh install_deps.sh

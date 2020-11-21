@@ -4,6 +4,8 @@ set -e -x
 
 apt-get update
 
+DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata
+
 apt-get install -y \
 	ssh \
 	make \
@@ -23,7 +25,8 @@ apt-get install -y \
 	vim \
 	gdb \
 	wget \
-	autoconf
+	autoconf \
+	iputils-ping
 
 pip3 install \
 	click \
