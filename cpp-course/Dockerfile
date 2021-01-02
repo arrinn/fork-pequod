@@ -6,6 +6,8 @@ RUN sh install_deps.sh
 
 COPY ./bashrc /bashrc
 
+ENV TZ=Europe/Moscow
+
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
@@ -22,4 +24,3 @@ ENV CXX="/usr/bin/clang++-10"
 ENV CC="/usr/bin/clang-10"
 
 CMD ["/usr/sbin/sshd", "-D"]
-
