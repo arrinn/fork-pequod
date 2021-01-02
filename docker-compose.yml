@@ -11,6 +11,6 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - <mount_path>:/workspace
+      - $MOUNT_PATH/workspace
     ports:
       - "127.0.0.1:2227:22"
