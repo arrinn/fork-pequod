@@ -5,4 +5,5 @@ Welcome to Docker container!
 Type 'exit' to exit =)
 EOF
 
+source ~/.bashrc
 cd /workspace/test-cpp-course
