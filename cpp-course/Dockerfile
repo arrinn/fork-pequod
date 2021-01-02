@@ -4,6 +4,8 @@ COPY install_deps.sh /
 
 RUN sh install_deps.sh
 
+COPY ./bashrc /bashrc
+
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 

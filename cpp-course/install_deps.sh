@@ -34,4 +34,3 @@ pip3 install \
 	python-gitlab \
 	termcolor \
 	virtualenv
-

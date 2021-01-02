@@ -6,4 +6,3 @@ if [[ $EUID == 0 ]]; then
 fi
 
 docker-compose -f docker-compose.yml up -d
-

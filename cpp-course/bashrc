@@ -1,0 +1,8 @@
+cat <<EOF
+Welcome to Docker container!
+===================================
+
+Type 'exit' to exit =)
+EOF
+
+cd /workspace/test-cpp-course
