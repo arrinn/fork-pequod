@@ -28,8 +28,9 @@ COURSE_WORKSPACE=/workspace
 # -----------------------------------------------------------------------------
 
 MOUNT_PATH=$(dirname $(dirname "${DOCKER_PATH}"))
-export MOUNT_PATH
 echo "Mounting from $MOUNT_PATH"
+
+sed "s/<mount_path>/${MOUNT_PATH//\//\\/}/" "${DOCKER_PATH}"/docker-compose.yml.j2 > "${DOCKER_PATH}"/docker-compose.yml
 
 export CONT_UID=$(id -u)
 export CONT_GID=$(id -g)
