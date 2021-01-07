@@ -1,7 +1,6 @@
 FROM ubuntu:20.04
 
 COPY install_deps.sh /
-
 RUN sh install_deps.sh
 
 COPY ./bashrc /bashrc

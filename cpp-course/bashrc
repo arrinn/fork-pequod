@@ -1,5 +1,6 @@
 cat <<EOF
 Welcome to Docker container!
+(___-){
 ===================================
 
 Type 'exit' to exit =)
