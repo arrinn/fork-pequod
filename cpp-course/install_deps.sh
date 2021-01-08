@@ -15,18 +15,19 @@ apt-get install -y \
 	clang-10 \
 	clang-format-10 \
 	clang-tidy-10 \
+	lldb-10 \
 	python3 \
 	python3-pip \
 	python3-venv \
 	ca-certificates \
 	openssh-server \
 	rsync \
-	lldb-10 \
 	vim \
 	gdb \
 	wget \
 	autoconf \
-	iputils-ping
+	iputils-ping \
+	binutils-dev
 
 pip3 install \
 	click \
