@@ -10,7 +10,9 @@ fi
 # -----------------------------------------------------------------------------
 
 COURSE_CONTAINER=test-cpp-course
+COURSE_REPO=test-cpp-course
 
 # -----------------------------------------------------------------------------
 
-docker exec -it --user root $COURSE_CONTAINER /bin/bash --rcfile /bashrc
+docker exec -it --user root $COURSE_CONTAINER /bin/bash \
+    --rcfile /workspace/$COURSE_REPO/docker/config/bashrc

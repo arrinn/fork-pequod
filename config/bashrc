@@ -8,3 +8,8 @@ EOF
 
 source ~/.bashrc
 cd /workspace/test-cpp-course
+
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+  eval $(ssh-agent -s) > /dev/null
+  ssh-add "/workspace/test-cpp-course/docker/config/keys/gitlab-key" >/dev/null 2>&1
+fi
