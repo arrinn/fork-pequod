@@ -10,7 +10,7 @@ from pequod.helpers import (
     user_id,
 )
 from pequod.config import (
-    COURSE_NAME,
+    REPO_NAME,
     CONTAINER_NAME,
     CONTAINER_PORT,
     HOST_WORKSPACE_DIR,
@@ -26,7 +26,7 @@ class Client:
         self._setup_env()
 
     def _setup_env(self) -> None:
-        os.environ["COURSE_NAME"] = str(COURSE_NAME)
+        os.environ["REPO_NAME"] = str(REPO_NAME)
         os.environ["CONTAINER_NAME"] = str(CONTAINER_NAME)
         os.environ["CONTAINER_PORT"] = str(CONTAINER_PORT)
         os.environ["HOST_WORKSPACE_DIR"] = str(HOST_WORKSPACE_DIR)
@@ -61,7 +61,7 @@ class Client:
 
     def _bash(self, user: str) -> None:
         cmd = [
-            "--user", f"{user}", "--env", "COURSE_NAME", f"{CONTAINER_NAME}",
+            "--user", f"{user}", "--env", "REPO_NAME", f"{CONTAINER_NAME}",
             "/bin/bash", "--rcfile", f"{CONTAINER_BASHRC_PATH}"
         ]
         self._exec(cmd)
