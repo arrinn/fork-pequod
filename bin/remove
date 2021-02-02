@@ -1,6 +1,10 @@
-#!/usr/bin/env bash
+#! /usr/bin/env python3
 
-COURSE_CONTAINER=test-cpp-course
+import sys
+from pathlib import Path
 
-docker container stop $COURSE_CONTAINER
-docker container rm $COURSE_CONTAINER
+sys.path.append(str(Path(__file__).parent.parent))
+
+from pequod.client import Client
+
+Client().remove()

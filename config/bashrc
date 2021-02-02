@@ -16,7 +16,7 @@ source ~/.bashrc
 
 # Run SSH agent and add key
 
-KEY="/workspace/test-cpp-course/docker/config/keys/gitlab-private-key"
+KEY="/workspace/${COURSE_NAME}/docker/config/keys/gitlab-private-key"
 eval $(ssh-agent -s) > /dev/null
 ssh-add $KEY >/dev/null 2>&1
 
@@ -24,4 +24,4 @@ ssh-add $KEY >/dev/null 2>&1
 
 # Starting directory
 
-cd /workspace/test-cpp-course
+cd "/workspace/${COURSE_NAME}"
