@@ -2,13 +2,8 @@ import os
 
 from typing import List
 
-from pequod.helpers import (
-    ensure_not_running_as_root,
-    group_id,
-    log,
-    run,
-    user_id,
-)
+from pequod import helpers
+from pequod.logging import log
 from pequod.config import (
     REPO_NAME,
     CONTAINER_NAME,
@@ -33,13 +28,14 @@ class Client:
 
     # --------------------------------------------------------------------------
 
-    @ensure_not_running_as_root
+    @helpers.ensure_not_running_as_root
     def login(self) -> None:
-        self._bash(user=f"{user_id()}:{group_id()}")
+        self._bash(user=f"{helpers.user_id()}:{helpers.group_id()}")
 
-    @ensure_not_running_as_root
+    @helpers.ensure_not_running_as_root
     def create(self) -> None:
-        log.info(f"Mounting '{HOST_WORKSPACE_DIR}' -> '{CONTAINER_WORKSPACE_DIR}'")
+        log.info(
+            f"Mounting '{HOST_WORKSPACE_DIR}' -> '{CONTAINER_WORKSPACE_DIR}'")
         self._compose_config()
         self._compose_build()
         self._add_group()
@@ -50,12 +46,12 @@ class Client:
         self._stop()
         self._rm()
 
-    @ensure_not_running_as_root
+    @helpers.ensure_not_running_as_root
     def restart(self) -> None:
         self._compose_config()
         self._compose_restart()
 
-    @ensure_not_running_as_root
+    @helpers.ensure_not_running_as_root
     def root(self) -> None:
         self._bash(user="root")
 
@@ -75,24 +71,25 @@ class Client:
             "docker-compose", "-f", f"{HOST_DOCKER_COMPOSE_PATH}", "up", "-d",
             "--build", "--force-recreate"
         ]
-        run(cmd)
+        helpers.run(cmd)
 
     def _add_group(self) -> None:
-        cmd = [f"{CONTAINER_NAME}", "groupadd", "-g", f"{group_id()}", "grp"]
+        cmd = [
+            f"{CONTAINER_NAME}", "groupadd", "-g", f"{helpers.group_id()}",
+            "grp"
+        ]
         self._exec(cmd, panic_on_error=False)
 
     def _add_user(self) -> None:
-        user = os.environ["USER"]
         cmd = [
-            f"{CONTAINER_NAME}", "useradd", "-u", f"{user_id()}", "-g",
-            f"{group_id()}", "-m", f"{user}"
+            f"{CONTAINER_NAME}", "useradd", "-u", f"{helpers.user_id()}", "-g",
+            f"{helpers.group_id()}", "-m", f"{helpers.user()}"
         ]
         self._exec(cmd)
 
     def _change_owner(self) -> None:
-        user = os.environ["USER"]
         cmd = [
-            f"{CONTAINER_NAME}", "chown", "-R", f"{user}",
+            f"{CONTAINER_NAME}", "chown", "-R", f"{helpers.user()}",
             f"{CONTAINER_WORKSPACE_DIR}"
         ]
         self._exec(cmd)
@@ -101,11 +98,11 @@ class Client:
 
     def _stop(self) -> None:
         cmd = ["docker", "container", "stop", f"{CONTAINER_NAME}"]
-        run(cmd)
+        helpers.run(cmd)
 
     def _rm(self) -> None:
         cmd = ["docker", "container", "rm", f"{CONTAINER_NAME}"]
-        run(cmd)
+        helpers.run(cmd)
 
     # --------------------------------------------------------------------------
 
@@ -113,14 +110,14 @@ class Client:
         cmd = [
             "docker-compose", "-f", f"{HOST_DOCKER_COMPOSE_PATH}", "up", "-d"
         ]
-        run(cmd)
+        helpers.run(cmd)
 
     # --------------------------------------------------------------------------
 
     def _exec(self, cmd: List[str], interactive: bool = True, **kwargs) -> None:
         cmd = ["docker", "exec"] + (["-it"] if interactive else []) + cmd
-        run(cmd, **kwargs)
+        helpers.run(cmd, **kwargs)
 
     def _compose_config(self) -> None:
         cmd = ["docker-compose", "-f", f"{HOST_DOCKER_COMPOSE_PATH}", "config"]
-        run(cmd)
+        helpers.run(cmd)
