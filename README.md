@@ -10,14 +10,13 @@ https://en.wikipedia.org/wiki/Pequod_(Moby-Dick)
 
 ```
 {REPO_DIR}
-├── docker
-│  ├── client
-│  ├── config
-│  │  └── bashrc
-│  ├── image
-│  │  ├── Dockerfile
-│  └── docker-compose.yml
-└── .pequod.json
+└── docker
+   ├── client
+   ├── config
+   │  └── bashrc
+   ├── image
+   │  ├── Dockerfile
+   └── docker-compose.yml
 ```
 
 В этой структуре `client` – данный репозиторий `pequod`, прицепленный сабмодулем.
