@@ -30,6 +30,7 @@ class Client:
         os.environ["CONTAINER_NAME"] = str(CONTAINER_NAME)
         os.environ["CONTAINER_SSH_PORT"] = str(CONTAINER_SSH_PORT)
         os.environ["HOST_WORKSPACE_DIR"] = str(HOST_WORKSPACE_DIR)
+        os.environ["CONTAINER_WORKSPACE_DIR"] = str(CONTAINER_WORKSPACE_DIR)
 
     # --------------------------------------------------------------------------
 
