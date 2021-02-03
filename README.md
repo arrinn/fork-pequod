@@ -15,7 +15,7 @@ https://en.wikipedia.org/wiki/Pequod_(Moby-Dick)
    ├── config
    │  └── bashrc
    ├── image
-   │  ├── Dockerfile
+   │  └── Dockerfile
    └── docker-compose.yml
 ```
 
