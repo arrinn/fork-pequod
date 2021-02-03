@@ -52,6 +52,10 @@ def group_id() -> int:
     return os.getegid()
 
 
+def user() -> str:
+    return os.environ["USER"]
+
+
 def run(cmd: List[str], panic_on_error: bool = True) -> None:
     shell_cmd = " ".join(cmd)
     log.debug(f"Running `{shell_cmd}`")
