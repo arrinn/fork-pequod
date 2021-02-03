@@ -1,6 +1,6 @@
 # Pequod
 
-Погружает рабочую копию репозитория, сабмодулем которго является, в докер-контейнер.
+Погружает рабочую копию репозитория, сабмодулем которого является, в докер-контейнер.
 
 https://en.wikipedia.org/wiki/Pequod_(Moby-Dick)
 
@@ -15,7 +15,7 @@ https://en.wikipedia.org/wiki/Pequod_(Moby-Dick)
    ├── config
    │  └── bashrc
    ├── image
-   │  ├── Dockerfile
+   │  └── Dockerfile
    └── docker-compose.yml
 ```
 
@@ -37,10 +37,16 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - $HOST_WORKSPACE_DIR:/workspace
+      - $HOST_WORKSPACE_DIR:$CONTAINER_WORKSPACE_DIR
     ports:
-      - "127.0.0.1:$CONTAINER_PORT:22"
+      - "127.0.0.1:2227:22"
 ```
+
+## Зависимости
+
+- `docker`
+- `docker-compose`
+- `python3`
 
 ## Команды
 
