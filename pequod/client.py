@@ -40,6 +40,7 @@ class Client:
     @ensure_not_running_as_root
     def create(self) -> None:
         log.info(f"Mounting '{HOST_WORKSPACE_DIR}' -> '{CONTAINER_WORKSPACE_DIR}'")
+        self._compose_config()
         self._compose_build()
         self._add_group()
         self._add_user()
@@ -51,6 +52,7 @@ class Client:
 
     @ensure_not_running_as_root
     def restart(self) -> None:
+        self._compose_config()
         self._compose_restart()
 
     @ensure_not_running_as_root
@@ -120,5 +122,5 @@ class Client:
         run(cmd, **kwargs)
 
     def _compose_config(self) -> None:
-        cmd = ["docker-compose", "config"]
+        cmd = ["docker-compose", "-f", f"{HOST_DOCKER_COMPOSE_PATH}", "config"]
         run(cmd)
