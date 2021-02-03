@@ -12,7 +12,6 @@ from pequod.helpers import (
 from pequod.config import (
     REPO_NAME,
     CONTAINER_NAME,
-    CONTAINER_SSH_PORT,
     HOST_WORKSPACE_DIR,
     HOST_DOCKER_COMPOSE_PATH,
     CONTAINER_WORKSPACE_DIR,
@@ -28,7 +27,6 @@ class Client:
     def _setup_env(self) -> None:
         os.environ["REPO_NAME"] = str(REPO_NAME)
         os.environ["CONTAINER_NAME"] = str(CONTAINER_NAME)
-        os.environ["CONTAINER_SSH_PORT"] = str(CONTAINER_SSH_PORT)
         os.environ["HOST_WORKSPACE_DIR"] = str(HOST_WORKSPACE_DIR)
         os.environ["CONTAINER_WORKSPACE_DIR"] = str(CONTAINER_WORKSPACE_DIR)
         os.environ["COMPOSE_PROJECT_NAME"] = str(REPO_NAME)
@@ -41,7 +39,7 @@ class Client:
 
     @ensure_not_running_as_root
     def create(self) -> None:
-        log.info(f"Mounting from {HOST_WORKSPACE_DIR}")
+        log.info(f"Mounting '{HOST_WORKSPACE_DIR}' -> '{CONTAINER_WORKSPACE_DIR}'")
         self._compose_build()
         self._add_group()
         self._add_user()
