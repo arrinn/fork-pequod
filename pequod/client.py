@@ -12,7 +12,7 @@ from pequod.helpers import (
 from pequod.config import (
     REPO_NAME,
     CONTAINER_NAME,
-    CONTAINER_PORT,
+    CONTAINER_SSH_PORT,
     HOST_WORKSPACE_DIR,
     HOST_DOCKER_COMPOSE_PATH,
     CONTAINER_WORKSPACE_DIR,
@@ -28,7 +28,7 @@ class Client:
     def _setup_env(self) -> None:
         os.environ["REPO_NAME"] = str(REPO_NAME)
         os.environ["CONTAINER_NAME"] = str(CONTAINER_NAME)
-        os.environ["CONTAINER_PORT"] = str(CONTAINER_PORT)
+        os.environ["CONTAINER_SSH_PORT"] = str(CONTAINER_SSH_PORT)
         os.environ["HOST_WORKSPACE_DIR"] = str(HOST_WORKSPACE_DIR)
 
     # --------------------------------------------------------------------------
