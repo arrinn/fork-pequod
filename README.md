@@ -13,19 +13,14 @@ https://en.wikipedia.org/wiki/Pequod_(Moby-Dick)
 ├── docker
 │  ├── client
 │  ├── config
-│  │  ├── keys
 │  │  └── bashrc
 │  ├── image
 │  │  ├── Dockerfile
-│  │  └── install_deps.sh
 │  └── docker-compose.yml
 └── .pequod.json
 ```
 
-Здесь
-- `client` – данный репозиторий, прицепленый сабмодулем
-- `image` – образ для контейнера
-- `config` – пользовательские секреты / профили (ключи для SSH, `bashrc`)
+В этой структуре `client` – данный репозиторий `pequod`, прицепленный сабмодулем.
 
 ### `docker-compose.yml`
 
