@@ -1,6 +1,6 @@
 # Pequod
 
-Заворачивает рабочую копию репозитория, сабмодулем которго является, в докер-контейнер.
+Погружает рабочую копию репозитория, сабмодулем которго является, в докер-контейнер.
 
 https://en.wikipedia.org/wiki/Pequod_(Moby-Dick)
 
@@ -25,5 +25,26 @@ https://en.wikipedia.org/wiki/Pequod_(Moby-Dick)
 Здесь
 - `client` – данный репозиторий, прицепленый сабмодулем
 - `image` – образ для контейнера
-- `config` – пользовательские настройки (ключи для SSH, `bashrc`)
+- `config` – пользовательские секреты / профили (ключи для SSH, `bashrc`)
+
+### `docker-compose.yml`
+
+```yaml
+version: "3.3"
+
+services:
+  test-course:
+    build:
+      context: image
+      dockerfile: Dockerfile
+    container_name: $CONTAINER_NAME
+    cap_add:
+      - SYS_PTRACE
+    stdin_open: true
+    tty: true
+    volumes:
+      - $HOST_WORKSPACE_DIR:/workspace
+    ports:
+      - "127.0.0.1:$CONTAINER_PORT:22"
+```
 
