@@ -37,7 +37,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - $HOST_WORKSPACE_DIR:$CONTAINER_WORKSPACE_DIR
+      - $HOST_WORKSPACE_DIR:/workspace
     ports:
       - "127.0.0.1:2227:22"
 ```
