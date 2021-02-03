@@ -25,7 +25,7 @@ https://en.wikipedia.org/wiki/Pequod_(Moby-Dick)
 Здесь
 - `client` – данный репозиторий, прицепленый сабмодулем
 - `image` – образ для контейнера
-- `config` – пользовательские настройки (ключи для SSH, `bashrc`)
+- `config` – пользовательские секреты / профили (ключи для SSH, `bashrc`)
 
 ### `docker-compose.yml`
 
