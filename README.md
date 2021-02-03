@@ -27,7 +27,7 @@ https://en.wikipedia.org/wiki/Pequod_(Moby-Dick)
 version: "3.3"
 
 services:
-  test-course:
+  wrapper:
     build:
       context: image
       dockerfile: Dockerfile
