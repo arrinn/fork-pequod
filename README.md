@@ -42,7 +42,7 @@ services:
       - "127.0.0.1:$CONTAINER_PORT:22"
 ```
 
-## Зависимости в хост-системе
+## Зависимости
 
 - `docker`
 - `docker-compose`
