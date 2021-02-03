@@ -34,8 +34,6 @@ class Client:
 
     @helpers.ensure_not_running_as_root
     def create(self) -> None:
-        log.info(
-            f"Mounting '{HOST_WORKSPACE_DIR}' -> '{CONTAINER_WORKSPACE_DIR}'")
         self._compose_config()
         self._compose_build()
         self._add_group()
