@@ -10,22 +10,16 @@ https://en.wikipedia.org/wiki/Pequod_(Moby-Dick)
 
 ```
 {REPO_DIR}
-├── docker
-│  ├── client
-│  ├── config
-│  │  ├── keys
-│  │  └── bashrc
-│  ├── image
-│  │  ├── Dockerfile
-│  │  └── install_deps.sh
-│  └── docker-compose.yml
-└── .pequod.json
+└── docker
+   ├── client
+   ├── config
+   │  └── bashrc
+   ├── image
+   │  ├── Dockerfile
+   └── docker-compose.yml
 ```
 
-Здесь
-- `client` – данный репозиторий, прицепленый сабмодулем
-- `image` – образ для контейнера
-- `config` – пользовательские секреты / профили (ключи для SSH, `bashrc`)
+В этой структуре `client` – данный репозиторий `pequod`, прицепленный сабмодулем.
 
 ### `docker-compose.yml`
 
@@ -33,7 +27,7 @@ https://en.wikipedia.org/wiki/Pequod_(Moby-Dick)
 version: "3.3"
 
 services:
-  test-course:
+  wrapper:
     build:
       context: image
       dockerfile: Dockerfile
