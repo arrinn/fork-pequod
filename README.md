@@ -15,7 +15,7 @@ https://en.wikipedia.org/wiki/Pequod_(Moby-Dick)
    ├── config
    │  └── bashrc
    ├── image
-   │  ├── Dockerfile
+   │  └── Dockerfile
    └── docker-compose.yml
 ```
 
@@ -41,6 +41,12 @@ services:
     ports:
       - "127.0.0.1:$CONTAINER_PORT:22"
 ```
+
+## Зависимости
+
+- `docker`
+- `docker-compose`
+- `python3`
 
 ## Команды
 
