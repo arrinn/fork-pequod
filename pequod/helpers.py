@@ -63,7 +63,7 @@ def run(cmd: List[str], panic_on_error: bool = True) -> None:
     completed = sp.run(cmd, stdout=sys.stdout, stderr=sys.stderr)
 
     if completed.returncode != 0:
-        msg = f"Called process `{shell_cmd}` failed with code {completed.returncode}"
+        msg = f"Called process `{shell_cmd}` exited with code {completed.returncode}"
         if panic_on_error:
             panic(reason=msg, code=ErrorCode.CALLED_PROCESS_ERROR)
 
