@@ -39,8 +39,7 @@ class Client:
         self._add_group()
         self._add_user()
         self._change_owner()
-        log.info("Container was built successfully, "
-                 "run `docker/client/bin/login` to login")
+        log.info("Container was built successfully")
 
     def remove(self) -> None:
         self._stop()
