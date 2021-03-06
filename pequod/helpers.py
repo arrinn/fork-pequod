@@ -6,6 +6,8 @@ from functools import wraps
 from typing import (
     Any,
     List,
+    Dict,
+    Optional,
 )
 from enum import (
     Enum,
@@ -13,6 +15,9 @@ from enum import (
 )
 
 from pequod.logging import log
+
+
+EnvLike = Dict[str, str]
 
 
 class ErrorCode(Enum):
@@ -56,11 +61,15 @@ def user() -> str:
     return os.environ["USER"]
 
 
-def run(cmd: List[str], panic_on_error: bool = True) -> None:
+def run(
+    cmd: List[str],
+    env: Optional[EnvLike] = None,
+    panic_on_error: bool = True,
+) -> None:
     shell_cmd = " ".join(cmd)
     log.debug(f"Running `{shell_cmd}`")
 
-    completed = sp.run(cmd, stdout=sys.stdout, stderr=sys.stderr)
+    completed = sp.run(cmd, env=env, stdout=sys.stdout, stderr=sys.stderr)
 
     if completed.returncode != 0:
         msg = f"Called process `{shell_cmd}` exited with code {completed.returncode}"
