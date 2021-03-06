@@ -15,18 +15,11 @@ from pequod.config import (
 
 
 class Client:
+    """Orchestrator for a single Docker container.
 
-    def __init__(self) -> None:
-        self._setup_env()
-
-    def _setup_env(self) -> None:
-        os.environ["REPO_NAME"] = str(REPO_NAME)
-        os.environ["CONTAINER_NAME"] = str(CONTAINER_NAME)
-        os.environ["HOST_WORKSPACE_DIR"] = str(HOST_WORKSPACE_DIR)
-        os.environ["CONTAINER_WORKSPACE_DIR"] = str(CONTAINER_WORKSPACE_DIR)
-        os.environ["COMPOSE_PROJECT_NAME"] = str(REPO_NAME)
-
-    # --------------------------------------------------------------------------
+    Usage:
+        Client().login()  # or one of the public methods below.
+    """
 
     @helpers.ensure_not_running_as_root
     def login(self) -> None:
@@ -55,6 +48,7 @@ class Client:
         self._bash(user="root")
 
     # --------------------------------------------------------------------------
+    # self.login() / self.root()
 
     def _bash(self, user: str) -> None:
         cmd = [
@@ -64,20 +58,22 @@ class Client:
         self._exec(cmd)
 
     # --------------------------------------------------------------------------
+    # self.create()
 
     def _compose_build(self) -> None:
         cmd = [
             "docker-compose", "-f", f"{HOST_DOCKER_COMPOSE_PATH}", "up", "-d",
             "--build", "--force-recreate"
         ]
-        helpers.run(cmd)
+        helpers.run(cmd, env=self._env)
 
     def _add_group(self) -> None:
         cmd = [
             f"{CONTAINER_NAME}", "groupadd", "-g", f"{helpers.group_id()}",
             "grp"
         ]
-        self._exec(cmd, panic_on_error=False)
+        helpers_run_kwargs = {"panic_on_error": False}
+        self._exec(cmd, **helpers_run_kwargs)
 
     def _add_user(self) -> None:
         cmd = [
@@ -94,29 +90,51 @@ class Client:
         self._exec(cmd)
 
     # --------------------------------------------------------------------------
+    # self.remove()
 
     def _stop(self) -> None:
         cmd = ["docker", "container", "stop", f"{CONTAINER_NAME}"]
-        helpers.run(cmd)
+        helpers.run(cmd, env=self._env)
 
     def _rm(self) -> None:
         cmd = ["docker", "container", "rm", f"{CONTAINER_NAME}"]
-        helpers.run(cmd)
+        helpers.run(cmd, env=self._env)
 
     # --------------------------------------------------------------------------
+    # self.restart()
 
     def _compose_restart(self) -> None:
         cmd = [
             "docker-compose", "-f", f"{HOST_DOCKER_COMPOSE_PATH}", "up", "-d"
         ]
-        helpers.run(cmd)
+        helpers.run(cmd, env=self._env)
 
     # --------------------------------------------------------------------------
+    # Internal methods
 
     def _exec(self, cmd: List[str], interactive: bool = True, **kwargs) -> None:
         cmd = ["docker", "exec"] + (["-it"] if interactive else []) + cmd
-        helpers.run(cmd, **kwargs)
+        helpers.run(cmd, env=self._env, **kwargs)
 
     def _compose_config(self) -> None:
         cmd = ["docker-compose", "-f", f"{HOST_DOCKER_COMPOSE_PATH}", "config"]
-        helpers.run(cmd)
+        helpers.run(cmd, env=self._env)
+
+    # --------------------------------------------------------------------------
+    # Initialisation
+
+    def __init__(self) -> None:
+        self._env = self._setup_env()
+
+    def _setup_env(self) -> helpers.EnvLike:
+        env: helpers.EnvLike = os.environ.copy()
+
+        env.update({
+            "REPO_NAME":               str(REPO_NAME),
+            "CONTAINER_NAME":          str(CONTAINER_NAME),
+            "HOST_WORKSPACE_DIR":      str(HOST_WORKSPACE_DIR),
+            "CONTAINER_WORKSPACE_DIR": str(CONTAINER_WORKSPACE_DIR),
+            "COMPOSE_PROJECT_NAME":    str(REPO_NAME),
+        })
+
+        return env
