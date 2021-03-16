@@ -65,6 +65,7 @@ def run(
     cmd: List[str],
     env: Optional[EnvLike] = None,
     panic_on_error: bool = True,
+    log_on_error: bool = True,
 ) -> None:
     shell_cmd = " ".join(cmd)
     log.debug(f"Running `{shell_cmd}`")
@@ -76,4 +77,5 @@ def run(
         if panic_on_error:
             panic(reason=msg, code=ErrorCode.CALLED_PROCESS_ERROR)
 
-        log.warning(msg)
+        if log_on_error:
+            log.warning(msg)

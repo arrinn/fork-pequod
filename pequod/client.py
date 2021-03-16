@@ -55,7 +55,8 @@ class Client:
             "--user", f"{user}", "--env", "REPO_NAME", f"{CONTAINER_NAME}",
             "/bin/bash", "--rcfile", f"{CONTAINER_BASHRC_PATH}"
         ]
-        self._exec(cmd)
+        helpers_run_kwargs = {"panic_on_error": False, "log_on_error": False}
+        self._exec(cmd, **helpers_run_kwargs)
 
     # --------------------------------------------------------------------------
     # self.create()
